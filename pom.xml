@@ -9,10 +9,10 @@
 		<version>3.2.3</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.iglesia</groupId>
-	<artifactId>iglesia</artifactId>
+	<groupId>com.market</groupId>
+	<artifactId>market</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>iglesia</name>
+	<name>market</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
