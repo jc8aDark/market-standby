@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Empresa Web | Log in</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" th:href="@{/dist/plugins/fontawesome-free/css/all.min.css}">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" th:href="@{/dist/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
+  <!-- Theme style -->
+  <link rel="stylesheet" th:href="@{/dist/css/adminlte.min.css}">
+</head>
+<body class="hold-transition login-page">
+<section class="padding-y-100 border-bottom border-light">
+  <div class="container">
+    <div class="row align-items-center">
+     <div class="col-12 text-center mb-5">
+       <h4>Pricing - <span class="text-primary">05</span></h4>
+     </div> 
+     
+     <div class="col-md-4 mt-4">
+       <div class="card border text-center height-100p">
+         <div class="card-header border-bottom">
+           <h4 class="mb-0">Free</h4>
+         </div>
+         <div class="card-header border-bottom py-5">
+           <h2 class="mb display-4">
+             <sup class="sup font-size-20">$</sup>0.00
+           </h2>
+         </div>
+         <div class="card-body">
+          <ul class="list-unstyled">
+            <li><span class="font-weight-semiBold">Unlimited</span> searchable message</li>
+            <li><span class="font-weight-semiBold">Unlimited</span> apps and service</li>
+            <li><span class="font-weight-semiBold">8GB</span> file storage per team</li>
+            <li><span class="font-weight-semiBold">100GB</span> Monthly Bandwidth</li>
+          </ul>
+         </div>
+         <div class="card-footer">
+          <a th:href="@{/vendors/create}"> <button  class="btn btn-primary">Get Started</button></a>
+         </div>
+       </div>
+     </div>
+     
+     <div class="col-md-4 mt-4">
+       <div class="card border text-center height-100p">
+         <div class="card-header border-bottom">
+           <h4 class="mb-0">Standard</h4>
+         </div>
+         <div class="card-header border-bottom py-5">
+           <h2 class="mb display-4 text-success">
+             <sup class="sup font-size-20">$</sup>29
+           </h2>
+         </div>
+         <div class="card-body">
+          <ul class="list-unstyled">
+            <li><span class="font-weight-semiBold">Unlimited</span> searchable message</li>
+            <li><span class="font-weight-semiBold">Unlimited</span> apps and service</li>
+            <li><span class="font-weight-semiBold">8GB</span> file storage per team</li>
+            <li><span class="font-weight-semiBold">100GB</span> Monthly Bandwidth</li>
+          </ul>
+         </div>
+         <div class="card-footer">
+           <button class="btn btn-success">Get Started</button>
+         </div>
+       </div>
+     </div>
+     
+     <div class="col-md-4 mt-4">
+       <div class="card border text-center height-100p">
+         <div class="card-header border-bottom">
+           <h4 class="mb-0">Business</h4>
+         </div>
+         <div class="card-header border-bottom py-5">
+           <h2 class="mb display-4">
+             <sup class="sup font-size-20">$</sup>29
+           </h2>
+         </div>
+         <div class="card-body">
+          <ul class="list-unstyled">
+            <li><span class="font-weight-semiBold">Unlimited</span> searchable message</li>
+            <li><span class="font-weight-semiBold">Unlimited</span> apps and service</li>
+            <li><span class="font-weight-semiBold">8GB</span> file storage per team</li>
+            <li><span class="font-weight-semiBold">100GB</span> Monthly Bandwidth</li>
+          </ul>
+         </div>
+         <div class="card-footer">
+           <button class="btn btn-primary">Get Started</button>
+         </div>
+       </div>
+     </div>
+     
+    </div> <!-- END row-->
+  </div> <!-- END container-->
+</section>
+
+
+   
+<!-- jQuery -->
+<script th:src="@{/dist/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/dist/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/dist/js/adminlte.min.js}"></script>
+</body>
+</html>
+   

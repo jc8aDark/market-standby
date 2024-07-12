@@ -1,0 +1,111 @@
+<head th:insert="~{fragments/head :: cabecera-script}"></head>
+<nav th:insert="~{fragments/nav :: navigation}"></nav>
+<aside th:insert="~{fragments/aside :: aside}"></aside>
+
+<body class="hold-transition sidebar-mini layout-fixed" sec:authorize="isAuthenticated()">
+	<div class="wrapper">
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<div class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1 class="m-0">Proveedores</h1>
+						</div><!-- /.col -->
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item active">Proveedores</li>
+							</ol>
+						</div><!-- /.col -->
+					</div><!-- /.row -->
+				</div><!-- /.container-fluid -->
+			</div>
+			<!-- /.content-header -->
+
+			<div th:if="${msg != null}" class='alert alert-success' th:text="${msg}" role='alert'></div>
+			<table id="example2" class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nombre</th>
+						<th>Correo</th>
+						<th>Dui</th>
+						<th>Telefono</th>
+						<th>Direccion</th>
+						<th>Registrado</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="u : ${supplier}">
+						<td th:text="${u.id}"></td>
+						<td th:text="${u.name}"></td> <!-- Corregir aquí, falta el corchete de cierre -->
+						<td th:text="${u.email}"></td>
+						<td th:text="${u.dui}"></td>
+						<td th:text="${u.phone}"></td>
+						<td th:text="${u.address}"></td>
+						<td th:text="${u.registrationDate}"></td>
+						<td>
+							<a th:href="@{/suppliers/edit/{id} (id=${u.id})}" class="btn btn-success btn-sm"
+								role="button" title="Editar el registro."><i class="fas fa-pencil-alt"
+									aria-hidden="true"></i></a>
+							<a th:href="@{/suppliers/delete/{id} (id=${u.id})}"
+								onclick="return confirm('¿Estas seguro?')" class="btn btn-success btn-sm" role="button"
+								title="Eliminar el registro."><i class="fas fa-trash" aria-hidden="true"></i></a>
+						</td>
+					</tr>
+
+
+				</tbody>
+			</table>
+
+		</div>
+		<!-- /.row -->
+	</div><!-- /.container-fluid -->
+	</div>
+	</div>
+	<!-- /.content -->
+	</div>
+
+
+	<footer th:insert="~{fragments/footer :: pie-pagina}"></footer>
+
+	<aside th:insert="~{fragments/asideControl :: asideControl}"></aside>
+
+	<!-- jQuery -->
+	<script th:src="@{/dist/plugins/jquery/jquery.min.js}"></script>
+	<!-- jQuery UI 1.11.4 -->
+	<script th:src="@{/dist/plugins/jquery-ui/jquery-ui.min.js}"></script>
+	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+	<script>
+		$(document).ready(function () {
+			$.widget.bridge('uibutton', $.ui.button);
+		});
+	</script>
+	<!-- Bootstrap 4 -->
+	<script th:src="@{/dist/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<!-- ChartJS -->
+
+	<!-- JQVMap -->
+	<script th:src="@{/dist/plugins/jqvmap/jquery.vmap.min.js}"></script>
+	<script th:src="@{/dist/plugins/jqvmap/maps/jquery.vmap.usa.js}"></script>
+	<!-- jQuery Knob Chart -->
+	<script th:src="@{/dist/plugins/jquery-knob/jquery.knob.min.js}"></script>
+	<!-- daterangepicker -->
+	<script th:src="@{/dist/plugins/moment/moment.min.js}"></script>
+	<script th:src="@{/dist/plugins/daterangepicker/daterangepicker.js}"></script>
+	<!-- Tempusdominus Bootstrap 4 -->
+	<script th:src="@{/dist/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js}"></script>
+	<!-- Summernote -->
+	<script th:src="@{/dist/plugins/summernote/summernote-bs4.min.js}"></script>
+	<!-- overlayScrollbars -->
+	<script th:src="@{/dist/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js}"></script>
+	<!-- AdminLTE App -->
+	<script th:src="@{/dist/js/adminlte.js}"></script>
+
+
+</body>
+
+</html>

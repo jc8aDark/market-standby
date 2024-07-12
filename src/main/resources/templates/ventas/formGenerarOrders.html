@@ -1,0 +1,233 @@
+<head th:insert="~{fragments/head :: cabecera-script}"></head>
+<nav th:insert="~{fragments/nav :: navigation}"></nav>
+<aside th:insert="~{fragments/aside :: aside}"></aside>
+
+<body class="hold-transition sidebar-mini layout-fixed" sec:authorize="isAuthenticated()">
+	<!-- Content Wrapper. Contains page content -->
+	<div class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<div class="container-fluid">
+				<h2 class="text-center display-4">Search</h2>
+			</div>
+		</section>
+		<!-- Main content -->
+
+		<!-- Aquí va el contenido principal de tu página -->
+		<section class="content">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-8 offset-md-2">
+						<form th:action="@{/generarOrder/search}" th:object="${search}" method="get">
+							<div class="input-group input-group-lg">
+								<input type="text" th:field="*{description}" class="form-control form-control-lg"
+									placeholder="Type your keywords here">
+								<div class="input-group-append">
+									<button type="submit" class="btn btn-lg btn-default">
+										<i class="fa fa-search"></i>
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-md-10 offset-md-1">
+						<div class="list-group">
+							<div class="list-group-item">
+								<div class="row" th:if="${not #lists.isEmpty(product)}">
+									<table id="tabla-productos" class="table table-bordered table-hover">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Foto</th>
+												<th>Nombre</th>
+												<th>Descripción</th>
+												<th>Precio</th>
+												<th>Cantidad</th>
+												<th>Proveedor</th>
+												<th>Unidad</th>
+												<th>Estado</th>
+												<th>Acciones</th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- Aquí van las filas de la primera tabla -->
+											<tr th:each="u : ${product}">
+												<td th:text="${u.id}"></td>
+												<td>
+													<img class="rounded mx-auto d-block"
+														th:src="@{/logos/{img}(img=${u.imagen})}"
+														alt="Generic placeholder image" width="60" height="60">
+												</td>
+												<td th:text="${u.name}"></td>
+												<td th:utext="${u.description}"></td>
+												<td th:text="${u.price}"></td>
+												<td th:text="${u.quanty}"></td>
+												<td><span th:utext="${u.supplier.name}" /></td>
+												<td><span th:utext="${u.unit.name}" /></td>
+												<td th:text="${u.status}"></td>
+												<td>
+													<a th:href="@{/generarOrder/agregarProducto(id=${u.id})}"
+														class="btn btn-success btn-sm btn-agregar" role="button"
+														title="Agregar">
+														<i class="fas fa-plus" aria-hidden="true"></i>
+													</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+
+
+
+
+
+						<!-- generateOrderDetails.html -->
+						<div th:fragment="contenido" class="ec-nav sticky-top bg-white">
+							<!-- Inicia parte de los detalles de la orden -->
+							<hr>
+							<div class="card card-info">
+								<div class="card-header">
+									<h3 class="card-title">Detalle de la Orden</h3>
+									<div class="card-tools">
+										<button type="button" class="btn btn-tool" data-card-widget="collapse"
+											title="Collapse">
+											<i class="fas fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<div class="card-body p-0">
+
+									<table id="detalle-orden" class="table">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Nombre</th>
+												<th>Precio</th>
+												<th>Cantidad</th>
+												<th>Sub Total</th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- Los productos agregados se mantendrán aquí -->
+											<!-- Usa Thymeleaf para iterar sobre los productos agregados -->
+											<tr th:each="producto : ${productosSegundaTabla}">
+												<td th:text="${producto.id}"></td>
+												<td th:text="${producto.name}"></td>
+												<td class="price" th:text="${producto.price}">
+													<span>$</span>
+												</td>
+												<td>
+													<form th:action="@{/generarOrder/procesarOrden}" method="post">
+														<!-- Campo oculto para enviar el ID del producto -->
+														<input type="hidden" name="idProducto"
+															th:value="${producto.id}" />
+														<!-- Campo de cantidad -->
+														<input type="number" name="cantidad" min="0"
+															class="form-control cantidad"
+															th:value="${producto.quanty}" />
+														<button type="submit" class="btn btn-success btn-sm btn-aceptar"
+															role="button">Procesar</button>
+														<!-- Botón para eliminar el producto -->
+														<a th:href="@{/generarOrder/eliminarProducto(id=${producto.id})}"
+															class="btn btn-danger btn-sm btn-eliminar" role="button"
+															title="Eliminar">
+															<i class="fas fa-trash" aria-hidden="true"></i> Eliminar
+														</a>
+													</form>
+												</td>
+												<!-- Muestra el subtotal correctamente -->
+												<td>
+													$<span class="subtotal" th:id="'subtotal-' + ${producto.id}"
+														th:text="${producto.price * producto.quanty}"></span>
+												</td>
+											</tr>
+										</tbody>
+										<tfoot style="background-color: #f2f2f2;">
+											<tr>
+												<td colspan="3"></td>
+												<td>Total:</td>
+												<td id="total" colspan="1"></td>
+											</tr>
+										</tfoot>
+									</table>
+
+									<script th:inline="javascript">
+										/* Obtener los elementos de cantidad y subtotal */
+										var cantidades = document.querySelectorAll('.cantidad');
+										var subtotales = document.querySelectorAll('.subtotal');
+
+										/* Calcular y actualizar los subtotales cuando se cambie la cantidad */
+										cantidades.forEach(function (cantidad, index) {
+											cantidad.addEventListener('input', function () {
+												var fila = cantidad.closest('tr'); // Obtener la fila actual
+												var precio = parseFloat(fila.querySelector('.price').textContent.trim());
+												var subtotal = precio * parseFloat(cantidad.value);
+												subtotales[index].textContent = subtotal.toFixed(2);
+												calcularTotal();
+											});
+										});
+
+										/* Calcular el total */
+										function calcularTotal() {
+											var total = 0;
+											subtotales.forEach(function (subtotal) {
+												total += parseFloat(subtotal.textContent);
+											});
+											document.getElementById('total').textContent = total.toFixed(2);
+										}
+
+										/* Calcular el total inicial */
+										calcularTotal();
+									</script>
+
+								</div>
+								<!-- /.card-body -->
+							</div>
+							<!-- /.card -->
+						</div>
+
+
+
+
+						<aside th:insert="~{fragments/asideControl :: asideControl}"></aside>
+						<!-- jQuery -->
+						<script th:src="@{/dist/plugins/jquery/jquery.min.js}"></script>
+						<!-- jQuery UI 1.11.4 -->
+						<script th:src="@{/dist/plugins/jquery-ui/jquery-ui.min.js}"></script>
+						<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+						<script>
+							$(document).ready(function () {
+								$.widget.bridge('uibutton', $.ui.button);
+							});
+						</script>
+						<!-- Bootstrap 4 -->
+						<script th:src="@{/dist/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+						<!-- ChartJS -->
+
+						<!-- JQVMap -->
+						<script th:src="@{/dist/plugins/jqvmap/jquery.vmap.min.js}"></script>
+						<script th:src="@{/dist/plugins/jqvmap/maps/jquery.vmap.usa.js}"></script>
+						<!-- jQuery Knob Chart -->
+						<script th:src="@{/dist/plugins/jquery-knob/jquery.knob.min.js}"></script>
+						<!-- daterangepicker -->
+						<script th:src="@{/dist/plugins/moment/moment.min.js}"></script>
+						<script th:src="@{/dist/plugins/daterangepicker/daterangepicker.js}"></script>
+						<!-- Tempusdominus Bootstrap 4 -->
+						<script
+							th:src="@{/dist/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js}"></script>
+						<!-- Summernote -->
+						<script th:src="@{/dist/plugins/summernote/summernote-bs4.min.js}"></script>
+						<!-- overlayScrollbars -->
+						<script th:src="@{/dist/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js}"></script>
+						<!-- AdminLTE App -->
+						<script th:src="@{/dist/js/adminlte.js}"></script>
+
+
+</body>
+
+</html>

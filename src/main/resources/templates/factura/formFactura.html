@@ -1,0 +1,86 @@
+<head th:insert="~{fragments/head :: cabecera-script}"></head>
+<nav th:insert="~{fragments/nav :: navigation}"></nav>
+<aside th:insert="~{fragments/aside :: aside}"></aside>
+
+<body class="hold-transition sidebar-mini layout-fixed" sec:authorize="isAuthenticated()">
+	<!-- Content Wrapper. Contains page content -->
+	<div class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<div class="container-fluid">
+				<h2 class="text-center display-4">Search</h2>
+			</div>
+		</section>
+		<!-- Main content -->
+
+		<!-- Aquí va el contenido principal de tu página -->
+		<section class="content">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-8 offset-md-2">
+						<form th:action="@{/generarOrder/search}" th:object="${search}" method="get">
+							<div class="input-group input-group-lg">
+								<input type="text" th:field="*{description}" class="form-control form-control-lg"
+									placeholder="Type your keywords here">
+								<div class="input-group-append">
+									<button type="submit" class="btn btn-lg btn-default">
+										<i class="fa fa-search"></i>
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-md-10 offset-md-1">
+						<div class="list-group">
+							<div class="list-group-item">
+								<div class="row" th:if="${not #lists.isEmpty(product)}">
+									<table id="tabla-productos" class="table table-bordered table-hover">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Foto</th>
+												<th>Nombre</th>
+												<th>Descripción</th>
+												<th>Precio</th>
+												<th>Cantidad</th>
+												<th>Proveedor</th>
+												<th>Unidad</th>
+												<th>Estado</th>
+												<th>Acciones</th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- Aquí van las filas de la primera tabla -->
+											<tr th:each="u : ${product}">
+												<td th:text="${u.id}"></td>
+												<td>
+													<img class="rounded mx-auto d-block"
+														th:src="@{/logos/{img}(img=${u.imagen})}"
+														alt="Generic placeholder image" width="60" height="60">
+												</td>
+												<td th:text="${u.name}"></td>
+												<td th:utext="${u.description}"></td>
+												<td th:text="${u.price}"></td>
+												<td th:text="${u.quanty}"></td>
+												<td><span th:utext="${u.supplier.name}" /></td>
+												<td><span th:utext="${u.unit.name}" /></td>
+												<td th:text="${u.status}"></td>
+												<td>
+													<a th:href="@{/generarOrder/agregarProducto(id=${u.id})}"
+														class="btn btn-success btn-sm btn-agregar" role="button"
+														title="Agregar">
+														<i class="fas fa-plus" aria-hidden="true"></i>
+													</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+
+						<!-- Incluir la vista secundaria generateOrderDetails -->
+						<div th:include="/ventas/generateOrderDetails :: contenido"></div>

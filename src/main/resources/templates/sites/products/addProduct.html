@@ -1,0 +1,69 @@
+ <head th:insert="~{fragmentsites/head :: cabecera-script}"></head>
+ <header th:insert="~{fragmentsites/header :: header-principal}"></header>
+    
+ <nav th:insert="~{fragmentsites/menu :: menu}"></nav>
+ 
+<body>
+ 
+
+<section class="py-5">
+  <div class="container">
+    <div class="row"  th:each="u : ${product}">
+      <div class="col-lg-5 mr-auto mt-4">
+        <div class="border border-light p-5">
+          <img class="w-100" th:src="@{/logos/{img}(img=${u.imagen})}" alt="">
+        </div>
+      </div>
+      <div class="col-lg-6 mt-4">
+        <h2 th:text="${u.name}"></h2>
+        <p th:utext="${u.store.name}">by <a href="#" class="text-dark"></a></p>
+        <ul class="list-inline">
+          <li class="list-inline-item pr-3 border-right">
+            <ul class="list-unstyled ec-review-rating font-size-12">
+              <li class="active"><i class="fas fa-star"></i></li>
+              <li class="active"><i class="fas fa-star"></i></li>
+              <li class="active"><i class="fas fa-star"></i></li>
+              <li class="active"><i class="fas fa-star"></i></li>
+              <li class="active"><i class="fas fa-star"></i></li>
+            </ul>
+          </li>
+          <li class="list-inline-item">3 customer reviews</li>
+        </ul>
+        <h4 class="mb-3">
+          <span class="text-primary" th:text="${u.price}">$</span>
+          <span class="text-gray"><s th:text="${u.price}">$</s></span>
+        </h4>
+        <p th:text="${u.status}"><i class="fas fa-check-circle text-success mr-2"></i></p>
+        <div class="mb-2" >
+          <h4 >Detalles </h4>
+         	<p th:utext="${u.description}">
+         	</p>
+        </div>
+        
+        <div class="d-md-flex">
+          <div class="input-group ec-touchspin mb-2 mr-3 width-10rem">
+            <div class="ec-touchspin__minus input-group-prepend">
+              <span class="input-group-text ti ti-minus bg-white"></span>
+            </div>
+            <input class="ec-touchspin__result form-control bg-white text-center" type="text" value="1">
+            <div class="input-group-append">
+              <span class="ec-touchspin__plus input-group-text ti-plus bg-white"></span>
+            </div>
+          </div>
+          <button class="btn btn-primary mb-2 mr-3">Buy Now</button>
+          <button class="btn btn-outline-primary btn-icon mb-2 mr-3"><i class="ti-shopping-cart mr-2"></i> Add to card</button>
+        </div>
+        <ul class="list-inline my-3">
+		    <li class="list-inline-item">Payment:</li>
+		    <li class="list-inline-item"><img th:src="@{/site/img/shop/payment/paypal.jpg}" alt=""></li>
+		    <li class="list-inline-item"><img th:src="@{/site/img/shop/payment/mastro.jpg}" alt=""></li>
+		    <li class="list-inline-item"><img th:src="@{/site/img/shop/payment/mastercard.jpg}" alt=""></li>
+		    <li class="list-inline-item"><img th:src="@{/site/img/shop/payment/visa.jpg}" alt=""></li>
+		    <li class="list-inline-item"><img th:src="@{/site/img/shop/payment/ae.jpg}" alt=""></li>
+	   </ul>
+        
+      </div>
+    </div> <!-- END row-->
+  </div> <!-- END container-->
+</section>
+

@@ -1,0 +1,150 @@
+<head th:insert="~{fragments/head :: cabecera-script}"></head>
+<nav th:insert="~{fragments/nav :: navigation}"></nav>
+<aside th:insert="~{fragments/aside :: aside}"></aside>
+
+<body class="hold-transition sidebar-mini layout-fixed" sec:authorize="isAuthenticated()">
+	<div class="wrapper">
+
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>jsGrid</h1>
+						</div>
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item active">jsGrid</li>
+							</ol>
+						</div>
+					</div>
+				</div><!-- /.container-fluid -->
+			</section>
+
+			<!-- Main content -->
+			<section class="content">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title">jsGrid</h3>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+						<table id="tablaVentas" class="table">
+							<thead>
+								<tr>
+									<th>Select</th> <!-- Agrega la columna para el campo select -->
+									<th>Producto</th>
+									<th>Usuario</th>
+									<th>Delivery</th>
+									<th>Costo de Envío</th>
+									<th>Tienda</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- Aquí se generan las filas con datos de ventas -->
+								<tr>
+									<!-- Agrega el campo select como radio button -->
+									<td>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="select" id="select1"
+												value="option1">
+											<label class="form-check-label" for="select1">Seleccionar</label>
+										</div>
+									</td>
+									<td>
+										<input type="text" value="producto">
+									</td>
+									<td>
+										<select name="usuario">
+											<option value="usuario1">Juan peres</option>
+											<option value="usuario2">Alberto sefalo</option>
+											<!-- Agrega más opciones según sea necesario -->
+										</select>
+									</td>
+									<td>
+										<select name="delivery">
+											<option value="delivery1">Delivery1</option>
+											<option value="delivery2">Delivery2</option>
+											<!-- Agrega más opciones según sea necesario -->
+										</select>
+									</td>
+									<td>
+										<select name="costoEnvio">
+											<option value="10.00">$10.00</option>
+											<option value="15.00">$15.00</option>
+											<!-- Agrega más opciones según sea necesario -->
+										</select>
+									</td>
+									<td>
+										<input type="text" value="store">
+									</td>
+								</tr>
+								<!-- Agrega más filas según sea necesario -->
+							</tbody>
+						</table>
+
+
+						<!-- Botones para cancelar y guardar la venta -->
+						<div>
+							<button type="button" class="btn btn-danger" onclick="cancelarVenta()">Cancelar</button>
+							<button type="submit" class="btn btn-primary">Guardar Venta</button>
+						</div>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+			</section>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+
+		<script>
+			// Función para cancelar la venta (puedes personalizarla según tus necesidades)
+			function cancelarVenta() {
+				alert("Venta cancelada");
+			}
+		</script>
+
+
+
+		<aside th:insert="~{fragments/asideControl :: asideControl}"></aside>
+
+		<!-- jQuery -->
+		<script th:src="@{/dist/plugins/jquery/jquery.min.js}"></script>
+		<!-- jQuery UI 1.11.4 -->
+		<script th:src="@{/dist/plugins/jquery-ui/jquery-ui.min.js}"></script>
+		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+		<script>
+			$(document).ready(function () {
+				$.widget.bridge('uibutton', $.ui.button);
+			});
+		</script>
+		<!-- Bootstrap 4 -->
+		<script th:src="@{/dist/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+		<!-- ChartJS -->
+
+		<!-- JQVMap -->
+		<script th:src="@{/dist/plugins/jqvmap/jquery.vmap.min.js}"></script>
+		<script th:src="@{/dist/plugins/jqvmap/maps/jquery.vmap.usa.js}"></script>
+		<!-- jQuery Knob Chart -->
+		<script th:src="@{/dist/plugins/jquery-knob/jquery.knob.min.js}"></script>
+		<!-- daterangepicker -->
+		<script th:src="@{/dist/plugins/moment/moment.min.js}"></script>
+		<script th:src="@{/dist/plugins/daterangepicker/daterangepicker.js}"></script>
+		<!-- Tempusdominus Bootstrap 4 -->
+		<script th:src="@{/dist/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js}"></script>
+		<!-- Summernote -->
+		<script th:src="@{/dist/plugins/summernote/summernote-bs4.min.js}"></script>
+		<!-- overlayScrollbars -->
+		<script th:src="@{/dist/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js}"></script>
+		<!-- AdminLTE App -->
+		<script th:src="@{/dist/js/adminlte.js}"></script>
+
+
+</body>
+
+</html>

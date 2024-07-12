@@ -1,0 +1,251 @@
+<head th:insert="~{fragments/head :: cabecera-script}"></head>
+<nav th:insert="~{fragments/nav :: navigation}"></nav>
+<aside th:insert="~{fragments/aside :: aside}"></aside>
+
+<body class="hold-transition sidebar-mini layout-fixed" sec:authorize="isAuthenticated()">
+	<div class="wrapper">
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<div class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1 class="m-0">Productos</h1>
+						</div><!-- /.col -->
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item active">Productos</li>
+							</ol>
+						</div><!-- /.col -->
+					</div><!-- /.row -->
+				</div><!-- /.container-fluid -->
+			</div>
+			<!-- /.content-header -->
+			<div class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-lg-12">
+							<div th:if="${msg != null}" class='alert alert-success' th:text="${msg}" role='alert'></div>
+
+							<form th:action="@{/products/save}" method="POST" th:object="${products}"
+								enctype="multipart/form-data" class="card p-4 p-md-5 shadow-v1">
+								<div class="row mt-5 mx-0">
+									<input type="hidden" th:field="*{id}">
+									<input type="hidden" th:field="*{imagen}">
+									<div class="col-md-4 mb-4">
+										<div class="form-group">
+											<label for="name">Nombre de producto</label>
+											<input type="text" class="form-control" th:field="*{name}" name="name"
+												id="name" placeholder="Producto" required="required">
+										</div>
+									</div>
+
+									<div class="col-md-4 mb-4">
+										<label>Proveedor:</label>
+										<select class="form-control" id="supplier" th:field="*{supplier}">
+											<option th:each="u : ${supplier}" th:value="${u.id}" th:text="${u.name}">
+											</option>
+										</select>
+									</div>									
+
+									<div class="col-md-4 mb-4">
+										<div class="form-group">
+											<label for="name">Precio venta:</label>
+											<input type="text" class="form-control small-input" th:field="*{price}"
+												name="price" id="price" placeholder="0.00" required="required">
+										</div>
+									</div>
+									<div class="col-md-4 mb-4">
+										<div class="form-group">
+											<label for="name">Cantidad producto:</label>
+											<input type="text" class="form-control small-input" th:field="*{quanty}"
+												name="quanty" id="quanty" placeholder="0.00" required="required">
+										</div>
+									</div>
+
+									<div class="col-md-4 mb-4">
+										<div class="form-group">
+											<label for="name">Impuesto:</label>
+											<input type="text" class="form-control small-input" th:field="*{taxes}"
+												name="taxes" id="taxes" placeholder="0.00" required="required">
+										</div>
+									</div>
+
+
+
+									<div class="col-md-4 mb-4">
+										<label>Categoria:</label>
+										<select class="form-control" id="categoria" th:field="*{categories}"
+											onchange="actualizarSubcategorias()">
+											<option th:each="u : ${categories}" th:value="${u.id}" th:text="${u.name}">
+											</option>
+										</select>
+									</div>
+									<div class="col-md-4 mb-4">
+										<label>Sub Categoria:</label>
+										<select class="form-control" id="subcategoria" th:field="*{subCategories}">
+											<option th:each="u : ${subCategories}" th:value="${u.id}"
+												th:text="${u.name}"></option>
+										</select>
+									</div>
+
+									<div class="col-md-4 mb-4">
+										<label>Tienda:</label>
+										<select class="form-control" id="store" th:field="*{store}">
+											<option th:each="u : ${store}" th:value="${u.id}" th:text="${u.name}">
+											</option>
+										</select>
+									</div>
+
+									<div class="col-md-4 mb-4">
+										<label>Medida:</label>
+										<select class="form-control" id="unit" th:field="*{unit}">
+											<option th:each="u : ${unit}" th:value="${u.id}"
+												th:text="${u.name + ' ' + u.slug}">
+											</option>
+										</select>
+									</div>
+
+									<div class="col-md-4 mb-4">
+										<label>Tipo:</label>
+										<select class="form-control" id="typeProduct" th:field="*{typeProducts}">
+											<option th:each="u : ${typeProduct}" th:value="${u.id}" th:text="${u.name}">
+											</option>
+										</select>
+									</div>
+
+									<div class="col-md-4 mb-4">
+										<label for="status">Estado del producto:</label>
+										<select class="form-control" id="status" name="status">
+											<option value="Activo">Activo</option>
+											<option value="Desactivado">Desactivado</option>
+										</select>
+									</div>
+
+
+									<div class="form-group">
+										<label for="archivoImagen">Imagen producto:</label>
+										<div class="input-group input-group--focus mb-2">
+											<input type="file" class="form-control-file" name="archivoImagen"
+												id="archivoImagen">
+										</div>
+
+										<!-- Contenedor para la imagen del perfil -->
+										<div class="input-group input-group--focus mb-2 text-center">
+											<img class="rounded mx-auto d-block"
+												th:src="@{/logos/{img}(img=${products.imagen})}"
+												alt="Generic placeholder image" width="200" height="200">
+										</div>
+									</div>
+									<div class="col-12">
+										<label for="description"><strong>Detalles</strong></label>
+										<textarea type="email" class="form-control" name="description"
+											th:field="*{description}" id="description" placeholder="Message"
+											rows="7"></textarea>
+										<button type="submit" class="btn btn-primary mt-4">Guardar Producto</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<!-- /.row -->
+					</div><!-- /.container-fluid -->
+				</div>
+			</div>
+			<!-- /.content -->
+		</div>
+
+
+		<footer th:insert="~{fragments/footer :: pie-pagina}"></footer>
+
+		<aside th:insert="~{fragments/asideControl :: asideControl}"></aside>
+
+		<!-- jQuery -->
+		<script th:src="@{/dist/plugins/jquery/jquery.min.js}"></script>
+		<!-- jQuery UI 1.11.4 -->
+		<script th:src="@{/dist/plugins/jquery-ui/jquery-ui.min.js}"></script>
+		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+		<script>
+			$(document).ready(function () {
+				$.widget.bridge('uibutton', $.ui.button);
+			});
+		</script>
+		<!-- Bootstrap 4 -->
+		<script th:src="@{/dist/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+		<!-- ChartJS -->
+
+		<!-- JQVMap -->
+		<script th:src="@{/dist/plugins/jqvmap/jquery.vmap.min.js}"></script>
+		<script th:src="@{/dist/plugins/jqvmap/maps/jquery.vmap.usa.js}"></script>
+		<!-- jQuery Knob Chart -->
+		<script th:src="@{/dist/plugins/jquery-knob/jquery.knob.min.js}"></script>
+		<!-- daterangepicker -->
+		<script th:src="@{/dist/plugins/moment/moment.min.js}"></script>
+		<script th:src="@{/dist/plugins/daterangepicker/daterangepicker.js}"></script>
+		<!-- Tempusdominus Bootstrap 4 -->
+		<script th:src="@{/dist/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js}"></script>
+		<!-- Summernote -->
+		<script th:src="@{/dist/plugins/summernote/summernote-bs4.min.js}"></script>
+		<!-- overlayScrollbars -->
+		<script th:src="@{/dist/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js}"></script>
+		<!-- AdminLTE App -->
+		<script th:src="@{/dist/js/adminlte.js}"></script>
+
+
+
+
+
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script th:src="@{/site/tinymce/tinymce.min.js}"></script>
+		<script>
+
+
+			tinymce.init({
+				selector: '#description',
+				plugins: "textcolor, table lists code",
+				toolbar: " undo redo | bold italic | alignleft aligncenter alignright alignjustify \n\
+					  | bullist numlist outdent indent | forecolor backcolor table code"
+			});
+
+
+
+		</script>
+
+		<!-- Script para actualizar subcategorías -->
+		<script th:inline="javascript">
+			function actualizarSubcategorias() {
+				var categoriaId = $('#categoria').val();
+
+				$.ajax({
+					type: 'GET',
+					url: '/products/obtenerSubcategoriasPorCategoria',
+					data: {'idCategoria': categoriaId},
+					success: function (subcategorias) {
+						var subcategoriaSelect = $('#subcategoria');
+						var selectedSubcategoryId = subcategoriaSelect.val();  // Guardar la selección actual
+
+						subcategoriaSelect.empty();
+
+						$.each(subcategorias, function (i, subcategoria) {
+							var option = $('<option>').val(subcategoria.id).text(subcategoria.name);
+							subcategoriaSelect.append(option);
+						});
+
+						// Establecer la opción seleccionada actualmente
+						subcategoriaSelect.val(selectedSubcategoryId);
+					},
+					error: function () {
+						alert('Error al cargar las subcategorías.');
+					}
+				});
+			}
+		</script>
+
+</body>
+
+</html>

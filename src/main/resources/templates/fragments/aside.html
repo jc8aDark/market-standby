@@ -1,0 +1,355 @@
+ <!-- Main Sidebar Container -->
+  <aside  th:fragment="inside" class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+   <a th:href="@{/}" class="brand-link">
+        <img th:src="@{/dist/img/logofinaltech.png}" alt="FinalTech Logo"  width="40" height="30"   style="opacity: .8">
+        <span class="brand-text font-weight-light">FinalTech</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar" >
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+                <a href="#" class="d-block">Bienvenido</a>
+                <span class="text-light" sec:authentication="name"></span>
+            </div>
+        </div>
+
+        <!-- SidebarSearch Form -->
+        <div class="form-inline">
+            <div class="input-group" data-widget="sidebar-search">
+                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-sidebar">
+                        <i class="fas fa-search fa-fw"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <!-- Esto solo se lo mostrara a los roles ADMINISTRADOR, VENDEDOR -->
+        <nav class="mt-2"  sec:authorize="isAuthenticated()" >
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ADMINISTRADOR','VENDEDOR')" >
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-user"></i>
+                        <p>
+                            Usuarios
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a th:href="@{/users/create}" sec:authorize="hasAnyAuthority('ADMINISTRADOR','VENDEDOR')" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Agregar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/users/mostrarUsuarios}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Ver</p>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ADMINISTRADOR','VENDEDOR')" >
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-user"></i>
+                        <p>
+                            Deliverys
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" sec:authorize="hasAnyAuthority('ADMINISTRADOR','VENDEDOR')" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Agregar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Ver</p>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" >
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-user"></i>
+                        <p>
+                            Vendors
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Agregar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Ver</p>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" >
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-user"></i>
+                        <p>
+                            Clientes-site
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Agregar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Ver</p>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                
+                
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
+                    <a href="#" class="nav-link">
+                       <i class="fas fa-sitemap"></i>
+                        <p>
+                            Departamentos
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a th:href="@{/departments/create}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Agregar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/departments/index}"  class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Ver</p>
+                            </a>
+                        </li>
+                       
+                    </ul>
+                </li>
+                
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ADMINISTRADOR','VENDEDOR')">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-user"></i>
+                        <p>
+                            Proveedores
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a th:href="@{/suppliers/create}" sec:authorize="hasAnyAuthority('ADMINISTRADOR','VENDEDOR')" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Agregar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/suppliers/listaProveedores}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Ver</p>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ADMINISTRADOR','VENDEDOR')">>
+                    <a href="#" class="nav-link">
+                       <i class="fas fa-store"></i>
+                        <p>
+                            Tienda
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a th:href="@{/stores/create}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Agregar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/stores/index}"  class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Ver</p>
+                            </a>
+                        </li>
+                       
+                    </ul>
+                </li>                
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
+                    <a href="#" class="nav-link">
+                       <i class="fas fa-tag"></i>
+                        <p>
+                            Categorias
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a th:href="@{/categories/create}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Nueva Categoria</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/categories/index}"  class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Ver Categorias</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-tags"></i>
+                        <p>
+                            Sub-Categorias
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a th:href="@{/subcategories/create}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Nueva Sub-Categoria</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/subcategories/index}"  class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Ver Sub-Categorias</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ADMINISTRADOR','VENDEDOR')">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-box"></i>
+                        <p>
+                            Productos
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a th:href="@{/products/create}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Agregar Productos</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/products/index}"  class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Ver Productos</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ADMINISTRADOR','VENDEDOR')">
+                    <a href="#" class="nav-link">
+                       <i class="fas fa-shopping-bag"></i>
+                        <p>
+                            Ventas
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                    	                    
+                        <li class="nav-item">
+                            <a th:href="@{/generarOrder/search}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Nueva</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/generarOrder/index}"  class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Mis Ventas</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ADMINISTRADOR','VENDEDOR')">
+                    <a href="#" class="nav-link">
+                       <i class="fas fa-shopping-bag"></i>
+                        <p>
+                            Ordenes
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                    	                    
+                        <li class="nav-item">
+                            <a th:href="@{/generarOrder/index}"  class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Ver</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ADMINISTRADOR','VENDEDOR')">
+                    <a href="#" class="nav-link">
+                       <i class="fas fa-shopping-bag"></i>
+                        <p>
+                            Compras
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Nueva Compra</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Mis Compras</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
